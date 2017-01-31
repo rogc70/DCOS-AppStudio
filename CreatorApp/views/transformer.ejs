@@ -1,0 +1,97 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Mesosphere DC/OS AppStudio</title>
+
+</head>
+<body bgcolor="#FFFFFF">
+	<div id="alldiv">
+		<div>
+			<img id="bg" style="position: absolute; top: 0px; left: 0px;"
+				src="images/mesospheredcos1024x768.jpg"> </img>
+		</div>
+		<div id="text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+			<h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+				<center>
+					Please define a Javascript transformer function. Each incoming message will go through this function before validation.
+					<p>
+					
+					<p>
+					<textarea cols="80" rows="20" id="in"  style="font-size: 12px; font-family: Courier New, Courier, monospace"  value="">
+	
+		
+	// Raw message available as: rawtext;
+	// save result in variable: result
+	// result is of type String
+	
+	// get json object: JSON.parse(rawtext);
+	// also available fields[] and types[]:
+	// e.g. fields[0]== "id",  types[0]=="Long"
+
+	console.log("In : "+rawtext);
+/*
+	let json= JSON.parse(rawtext);
+        for (var key in json) {
+  			if (json.hasOwnProperty(key)) {
+				  if(typesByName[key]=== "String")
+				  	json[key]= "Great!";
+			}
+		}
+*/
+	result= JSON.stringify(json);
+	console.log("After transformation: "+result);
+					
+					</textarea>
+					<p>
+					<button id="encode" onclick="myEncode()" style="width: 360px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Encode</button>  
+					<button id="next" onclick="mySubmit()" style="width: 360px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Continue</button>  
+				</center>
+			</h2>
+			</br>
+		</div>
+	</div>
+	<script>
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		var sX = w / 1024;
+		var sY = h / 768;
+		var bgh = (768 * window.innerWidth / 1024);
+		var apppath= "";
+		var fullpath;
+		var encode= false;
+
+		var bg = document.getElementById("bg");
+		bg.setAttribute("style",
+				"position:absolute; top:0px; left:0px; width: "
+						+ window.innerWidth + "px; height: " + bgh + "px;");
+		var text = document.getElementById("text");
+		text.setAttribute("style", "style=font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; position:absolute; top:" + (320 * sY)
+				+ "px; left:" + (((960 - 512 - 140) / 2) * sX) + "px; width: "
+				+ (512 * sX * 1.5) + "px; height: " + (256 * sY * 1.5) + "px;");
+
+		function myEncode() {
+			let transformer= document.getElementById("in").value;
+			if(!encode) {
+				document.getElementById("in").value=encodeURIComponent(transformer);
+				document.getElementById("encode").innerHTML= "Decode";
+			}	
+			else {
+				document.getElementById("in").value=decodeURIComponent(transformer);	
+				document.getElementById("encode").innerHTML= "Encode";
+			}
+			encode= !encode;			
+		};
+		function mySubmit() {
+			let transformer= new Object();
+			transformer.value= document.getElementById("in").value;
+		//	alert(transformer.value);
+			if(!encode)	
+				location.href='takeoff.html?transformer='+encodeURIComponent(transformer.value);
+			else
+				location.href='takeoff.html?transformer='+transformer.value;	
+		};
+	</script>
+
+</body>
+</html>

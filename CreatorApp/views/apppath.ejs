@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Mesosphere DC/OS AppStudio</title>
+
+</head>
+<body bgcolor="#FFFFFF">
+	<div id="alldiv">
+		<div>
+			<img id="bg" style="position: absolute; top: 0px; left: 0px;"
+				src="images/mesospheredcos1024x768.jpg"> </img>
+		</div>
+		<div id="text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+			<h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+				<center>
+					First let's create an HTTP endpoint:
+	
+					<p>
+						(Please no funny characters like whitespaces for something)
+						<p>
+					<input id="in" oninput="updatePath()" style="text-align: center; width: 512px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" type="text" value=""></input>
+						<p>
+						Your app will be available under:
+						<p>
+						<h3  style="width: 360px; font-size: 24px; font-family: Courier New, Courier, monospace"><div id="path"></div></h3>
+						<p>
+					<button id="next" disabled onclick="location.href='bgimage.html?apppath='+apppath.toLowerCase()+'&creator='+fullpath" style="width: 360px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Continue</button>  
+				</center>
+			</h2>
+			</br>
+		</div>
+	</div>
+	<script>
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		var sX = w / 1024;
+		var sY = h / 768;
+		var bgh = (768 * window.innerWidth / 1024);
+		var apppath= "";
+		var fullpath;
+
+		var bg = document.getElementById("bg");
+		bg.setAttribute("style",
+				"position:absolute; top:0px; left:0px; width: "
+						+ window.innerWidth + "px; height: " + bgh + "px;");
+		var text = document.getElementById("text");
+		text.setAttribute("style", "style=font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; position:absolute; top:" + (320 * sY)
+				+ "px; left:" + (((960 - 512 - 140) / 2) * sX) + "px; width: "
+				+ (512 * sX * 1.5) + "px; height: " + (256 * sY * 1.5) + "px;");
+		let path1 = document.getElementById("path");
+		path1.innerHTML= location.href;
+
+		function updatePath() {
+			let inp= document.getElementById("in");
+			apppath= inp.value.toLowerCase();
+			let upath = document.getElementById("path");
+			v= location.href;
+			v= v.substring(0, v.lastIndexOf('/'));
+			upath.innerHTML= v+"/"+inp.value;
+			fullpath= v;
+			if(inp.value.length> 0) {
+				document.getElementById("next").disabled= false;
+			}
+			else {
+				document.getElementById("next").disabled= true;				
+			}
+		}
+		updatePath();
+	</script>
+
+</body>
+</html>
