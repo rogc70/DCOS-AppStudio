@@ -16,7 +16,7 @@
 				<center>
 					Please define a Javascript transformer function. Each incoming message will go through this function before validation.
 					<p>
-					
+					No single quotes please.
 					<p>
 					<textarea cols="80" rows="20" id="in"  style="font-size: 12px; font-family: Courier New, Courier, monospace"  value="">
 	
@@ -28,6 +28,12 @@
 	// get json object: JSON.parse(rawtext);
 	// also available fields[] and types[]:
 	// e.g. fields[0]== "id",  types[0]=="Long"
+
+	// Transform incoming xml to json:  json= parseXML(rawtext); result= JSON.stringify(json);
+	// uses npm xml2js
+	// Transform incoming yaml to json: let json=yamlParser.parse(rawtext); console.log("JSON: "+JSON.stringify(json)); result= JSON.stringify(json); 
+	// uses npm yamljs
+	// Rename field: let json= JSON.parse(rawtext); json.newname= json.oldname; delete json.oldname;
 
 	console.log("In : "+rawtext);
 /*

@@ -4,6 +4,28 @@ var app = express();
 var url= require('url');
 var request = require('request');
 var http = require("http");
+var yamlParser= require('yamljs');
+var Fiber = require('fibers');
+var parseString = require('xml2js').parseString;
+var xmlasjson;
+
+function fiberparseXML(xml, ret) {
+    var fiber = Fiber.current;
+    parseString(xml, function (err, result) {
+      xmlasjson= result;
+  });
+  Fiber.yield();
+};
+
+
+function parseXML(xml) {
+  let ret= "";
+Fiber(function() {
+  console.log("! "+xml)
+    fiberparseXML(xml, ret);
+}).run();
+  return xmlasjson;
+};
 
 let appjson= new String(process.env.APPDEF);
 appjson= appjson.replace(/\'/g, '\"');
@@ -30,7 +52,6 @@ function doTransform(req, res, next) {
   try {
   rawtext= req.body;
   result= rawtext;
-
   console.log("received msg: "+rawtext);
 
   eval("try {"+transformer+"} catch (ex) { console.log(ex)}");

@@ -58,6 +58,7 @@ router.get('/zeppelin.html', function(req, res, next) {
 let obj= require(process.env.MESOS_SANDBOX+"/zeppelin-notebook.json");
 let txt= JSON.stringify(obj).replace(/TOPIC/g, appdef.topic);
 txt= txt.replace(/TABLE/g, appdef.table);
+txt= txt.replace(/APPNAME/g, appdef.name);
 let l1= "";
 let l2= "";
 for(let i= 0; i< fields.length; i++) {
