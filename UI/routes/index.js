@@ -5,6 +5,8 @@ var url= require('url');
 var request = require('request');
 var http = require("http");
 var fs = require('fs');
+var formidable = require('formidable');
+
 
 let json= new String(process.env.APPDEF);
 json= json.replace(/\'/g, '\"');
@@ -54,6 +56,32 @@ kafka_consumer.on('message', function (message) {
 function handleImageDownload(err) {
 };
   
+  router.post("/bgimage.html", function (request, response) {  
+  console.log("upload... "+app.get("apppath"));
+   var form = new formidable.IncomingForm();
+  form.uploadDir = process.env.MESOS_SANDBOX+"/public/images";
+  let fname= '';
+
+  form.on('file', function(name, file){
+    fname= file.path;
+    console.log("File: "+file.path);
+});
+   form.parse(request, function(err, fields, files){
+     if(err) {
+       console.log(err);
+     }
+     else {
+       fs.rename(fname, fname.substring(0, fname.lastIndexOf('/')) + '/bgimg.jpg');
+     }
+   response.end('upload complete!');
+});
+});     
+
+router.get('/bgimage.html', function(req, res, next) {
+  res.render('bgimage', { title: 'DCOS AppStudio' });
+});
+
+
 router.get('/zeppelin.html', function(req, res, next) {
 let obj= require(process.env.MESOS_SANDBOX+"/zeppelin-notebook.json");
 let txt= JSON.stringify(obj).replace(/TOPIC/g, appdef.topic);

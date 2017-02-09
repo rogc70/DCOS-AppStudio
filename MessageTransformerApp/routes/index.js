@@ -53,7 +53,7 @@ function doTransform(req, res, next) {
   rawtext= req.body;
   result= rawtext;
   console.log("received msg: "+rawtext);
-
+console.log(transformer);
   eval("try {"+transformer+"} catch (ex) { console.log(ex)}");
   if(result== null)
     throw "result== null";
