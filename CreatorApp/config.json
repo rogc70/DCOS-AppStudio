@@ -12,12 +12,7 @@
 	"gpus": 0,
 	"executor": "",
 	"constraints": [],
-	"fetch": [{
-		"uri": "http://digitalemil.de/creator-v0.0.1.tgz",
-		"extract": true,
-		"executable": false,
-		"cache": false
-	}],
+	"fetch": [],
 	"storeUrls": [],
 	"backoffSeconds": 1,
 	"backoffFactor": 1.15,
@@ -26,7 +21,7 @@
 		"type": "DOCKER",
 		"volumes": [],
 		"docker": {
-			"image": "digitalemil/mypublicrepo:nhh-v1.1",
+			"image": "digitalemil/mypublicrepo:dcosappstudio-creator-v1.0.0",
 			"network": "HOST",
 			"portMappings": null,
 			"privileged": false,
@@ -54,7 +49,7 @@
 	},
 	"labels": {
 		"HAPROXY_GROUP": "external",
-		"HAPROXY_0_VHOST": "esiemes-b-publicsl-ol0m77pfyxm5-781906964.eu-central-1.elb.amazonaws.com"
+		"HAPROXY_0_VHOST": ""
 	},
 	"acceptedResourceRoles": null,
 	"ipAddress": null,

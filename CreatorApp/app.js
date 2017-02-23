@@ -9,9 +9,6 @@ var index = require('./routes/index');
 var httpProxy = require('http-proxy');
 var proxy = httpProxy.createProxyServer({});
 
-var formidable = require('formidable');
-var fs= require('fs');
-
 var app = express();
 var currentapppath= "myapp";
 

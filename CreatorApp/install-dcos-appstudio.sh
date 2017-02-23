@@ -1,4 +1,22 @@
 #!/bin/bash
+
+read -p "Install services? (y/n) " -n1 -s c
+if [ "$c" = "y" ]; then
+	echo yes
+	./setup-marathon-lb.sh
+	dcos package install --yes cassandra
+	dcos package install --yes kafka
+	dcos package install --yes elasticsearch
+	dcos package install --yes jenkins 
+
+	read -p "Press any key when the Elastic service is started." -n1 -s
+	dcos marathon app add kibana.json
+	read -p "Press any key when the services are started." -n1 -s 
+else
+	echo no
+fi
+
+
 export CONFIGJSON='{
 	"volumes": [],
 	"id": "/dcos-appstudio-creator",
@@ -13,12 +31,7 @@ export CONFIGJSON='{
 	"gpus": 0,
 	"executor": "",
 	"constraints": [],
-	"fetch": [{
-		"uri": "http://digitalemil.de/creator-v0.0.1.tgz",
-		"extract": true,
-		"executable": false,
-		"cache": false
-	}],
+	"fetch": [],
 	"storeUrls": [],
 	"backoffSeconds": 1,
 	"backoffFactor": 1.15,
@@ -27,7 +40,7 @@ export CONFIGJSON='{
 		"type": "DOCKER",
 		"volumes": [],
 		"docker": {
-			"image": "digitalemil/mypublicrepo:nhh-v1.1",
+			"image": "digitalemil/mypublicrepo:dcosappstudio-creator-v1.0.0",
 			"network": "HOST",
 			"portMappings": null,
 			"privileged": false,
