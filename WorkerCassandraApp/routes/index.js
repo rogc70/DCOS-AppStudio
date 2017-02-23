@@ -95,7 +95,7 @@ for (var property in jsonmsg) {
       keys+= " "+property;
       let quotes="";
       let t= typeForFields(property);
-      if(t=== "String" || t=== "Date/time" || t=== "Location")
+      if(t=== "String" || t=== "Date/time" || t=== "Date/Time" || t=== "Location")
         quotes="'";
       vals+= quotes+jsonmsg[property]+quotes;
       if(n< fields.length-1) {

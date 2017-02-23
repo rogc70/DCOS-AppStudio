@@ -31,15 +31,15 @@ let n= 0;
 const fs = require('fs');
 let warandpeace;
 let length;
-console.log("Reading: "+process.env.MESOS_SANDBOX+"/warandpeace.txt");
-fs.readFile(process.env.MESOS_SANDBOX+"/warandpeace.txt", 'utf8', function(err, data) {
+console.log("Reading: "+process.env.APPDIR+"/warandpeace.txt");
+fs.readFile(process.env.APPDIR+"/warandpeace.txt", 'utf8', function(err, data) {
   if (err) throw err;
   warandpeace= new String(data);
   length= warandpeace.length;
 });
 
-console.log(process.env.MESOS_SANDBOX+"/airports.txt");
-fs.readFile(process.env.MESOS_SANDBOX+"/airports.txt", 'utf8', function(err, data) {
+console.log(process.env.APPDIR+"/airports.txt");
+fs.readFile(process.env.APPDIR+"/airports.txt", 'utf8', function(err, data) {
   if (err) throw err;
   airports= new String(data).split("\n");
   console.log(airports[0]);
@@ -77,7 +77,33 @@ function getRandomBoolean() {
 function getRandomDateTime() {
   let now= new Date().getTime();
   let d= new Date(now - Math.floor(Math.random()*1000*100000*14));
-  return d.getFullYear()+"-"+(d.getUTCMonth()+1)+"-"+d.getUTCDate()+"T"+d.getUTCHours()+":"+d.getUTCMinutes()+":"+(d.getUTCMilliseconds()/1000.0)+"Z";
+  let day= d.getUTCDate();
+			let daystring= ""+day;
+			
+  			if(day< 10)
+    				daystring="0"+daystring;
+  			let month= d.getUTCMonth()+1;
+  			let monthstring= ""+month;
+  			if(month< 10)
+    				monthstring="0"+monthstring;
+            		
+		        let hour= d.getUTCHours();
+			let hourstring= ""+hour;
+  			if(hour< 10)
+    				hourstring="0"+hourstring;
+            		
+			let minute= d.getUTCMinutes();
+			let minutestring= ""+minute;
+  			if(minute< 10)
+    				minutestring="0"+minutestring;
+            		    
+			let second= d.getUTCMilliseconds()/1000.0;
+			let secondstring= ""+second;
+  			if(second< 10)
+    				secondstring="0"+secondstring
+			    
+
+  return d.getFullYear()+"-"+monthstring+"-"+daystring+"T"+hourstring+":"+minutestring+":"+secondstring+"Z";
 };
 
 function getRandomString() {

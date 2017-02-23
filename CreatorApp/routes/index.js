@@ -11,14 +11,14 @@ var groupconfig= require('../groupconfig.json');
 
 router.post("/bgimage.html", function (request, response) {  
   console.log("upload... "+app.get("apppath"));
-  if(!fs.existsSync(process.env.MESOS_SANDBOX+"/public/"+app.get("apppath"))) { 
-    console.log("mkdir "+process.env.MESOS_SANDBOX+"/public/"+app.get("apppath"));
+  if(!fs.existsSync(process.env.APPDIR+"/public/"+app.get("apppath"))) { 
+    console.log("mkdir "+process.env.APPDIR+"/public/"+app.get("apppath"));
   
-   fs.mkdir(process.env.MESOS_SANDBOX+"/public/"+app.get("apppath"));
+   fs.mkdir(process.env.APPDIR+"/public/"+app.get("apppath"));
   }
   console.log("mkdir done.");
    var form = new formidable.IncomingForm();
-  form.uploadDir = process.env.MESOS_SANDBOX+"/public/"+app.get("apppath");
+  form.uploadDir = process.env.APPDIR+"/public/"+app.get("apppath");
   let fname= '';
 
   form.on('file', function(name, file){
